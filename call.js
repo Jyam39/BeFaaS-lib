@@ -1,6 +1,5 @@
 const _ = require('lodash')
-const fetch = require('node-fetch')
-
+import * as fetch from 'node-fetch';
 const helper = require('./helper')
 
 const experiment = helper.loadExperiment()
@@ -24,7 +23,7 @@ const publisherEndpoints = {
 module.exports = async (fn, contextId, xPair, payload) => {
 
   if (!_.isObject(payload)) throw new Error('payload is not an object')
-  
+
   var provider = ""
   if (fn === "publisher") {
     var functionName = payload.fun
@@ -35,8 +34,8 @@ module.exports = async (fn, contextId, xPair, payload) => {
     provider = _.get(experiment, `program.functions.${fn}.provider`)
     console.log("Will call " + fn + ", provider is " + provider)
     if (!endpoints[provider]) throw new Error('unknown provider')
-  } 
-  
+  }
+
   if (fn === "publisher") {
     const res = await fetch(`${publisherEndpoints[provider]}/call`, {
       method: 'post',
@@ -58,6 +57,6 @@ module.exports = async (fn, contextId, xPair, payload) => {
           'X-Pair': xPair
         }
     })
-	return res.json() 
+	return res.json()
   }
 }
