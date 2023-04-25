@@ -112,6 +112,9 @@ function serverlessRouter (options, routerFn) {
   router.use(handleErrors, hybridBodyParser())
   console.log('done.')
 
+  // m - method, e.g., "post"
+  // r - route, e.g., "/"
+  // h - handler, see return
   const wrapHandler = (m, r, h) =>
     router[m](r, async (ctx, next) => {
       logRequestAndAttachContext(ctx, dbBindToMeasure)
