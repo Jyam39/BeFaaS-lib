@@ -1,5 +1,5 @@
-const _ = require('lodash')
 import * as fetch from 'node-fetch';
+const _ = require('lodash')
 const helper = require('./helper')
 
 const experiment = helper.loadExperiment()
