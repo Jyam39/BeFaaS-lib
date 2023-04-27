@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const serverless = require('serverless-http')
-const azure = require('azure-function-express')
+const azure = require('@bittrance/azure-function-express')
 
 const Koa = require('koa')
 const Router = require('@koa/router')
