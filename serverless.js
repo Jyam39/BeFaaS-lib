@@ -1,12 +1,10 @@
 const _ = require('lodash')
 const serverless = require('serverless-http')
 const azure = require('@bittrance/azure-function-express')
-
 const Koa = require('koa')
 const Router = require('@koa/router')
 const bodyParser = require('koa-bodyparser')
 const qs = require('qs')
-
 const log = require('./log')
 const helper = require('./helper')
 const performance = require('./performance')
