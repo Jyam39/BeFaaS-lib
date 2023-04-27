@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`serverless.event 1`] = `
-Object {
-  "event": Object {
+{
+  "event": {
     "test": "event",
   },
   "ok": true,
@@ -10,14 +10,14 @@ Object {
 `;
 
 exports[`serverless.event db context 1`] = `
-Object {
+{
   "test": "db",
 }
 `;
 
 exports[`serverless.event lambda 1`] = `
-Object {
-  "event": Object {
+{
+  "event": {
     "test": "event3",
   },
   "ok": true,
@@ -25,14 +25,14 @@ Object {
 `;
 
 exports[`serverless.router 1`] = `
-Object {
+{
   "ok": true,
 }
 `;
 
 exports[`serverless.router 2`] = `
-Object {
-  "event": Object {
+{
+  "event": {
     "test": "event2",
   },
   "ok": true,
