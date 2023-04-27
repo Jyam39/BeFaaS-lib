@@ -66,7 +66,7 @@ async function handleErrors (ctx, next) {
 }
 
 function hybridBodyParser () {
-  //console.log('in body parser')
+  // console.log('in body parser')
   const bp = bodyParser()
   return async (ctx, next) => {
     if (
@@ -74,7 +74,7 @@ function hybridBodyParser () {
       ctx.request.is('application/x-www-form-urlencoded') &&
       ctx.req.body
     ) {
-      //console.log('will set req.body')
+      // console.log('will set req.body')
       ctx.req.body = qs.parse(ctx.req.body, { allowDots: true })
     }
 
@@ -86,14 +86,14 @@ function hybridBodyParser () {
         ? ctx.req.body
         : ctx.request.body
 
-    //console.log('ctx.request.body is ' + JSON.stringify(ctx.request.body))
+    // console.log('ctx.request.body is ' + JSON.stringify(ctx.request.body))
     return bp(ctx, next)
   }
 }
 
 function serverlessRouter (options, routerFn) {
-  //console.log('router: ' + JSON.stringify(routerFn))
-  //console.log('options: ' + JSON.stringify(options))
+  // console.log('router: ' + JSON.stringify(routerFn))
+  // console.log('options: ' + JSON.stringify(options))
   if (_.isFunction(options) && _.isUndefined(routerFn)) {
     routerFn = options
     options = {}
@@ -103,14 +103,14 @@ function serverlessRouter (options, routerFn) {
   const router = new Router({
     prefix: helper.prefix()
   })
-  //console.log('app and router initialized.')
+  // console.log('app and router initialized.')
 
   let dbBindToMeasure = () => undefined
   if (options.db) dbBindToMeasure = db.connect(options.db)
 
-  //console.log('will use hybrifBodyParser.')
+  // console.log('will use hybrifBodyParser.')
   router.use(handleErrors, hybridBodyParser())
-  //console.log('done.')
+  // console.log('done.')
 
   // m - method, e.g., "post"
   // r - route, e.g., "/"
@@ -119,10 +119,10 @@ function serverlessRouter (options, routerFn) {
     router[m](r, async (ctx, next) => {
       logRequestAndAttachContext(ctx, dbBindToMeasure)
       const end = ctx.lib.measure(`${m}:${r}`)
-      //console.log('will call handler with:')
-      //console.log('r: ' + JSON.stringify(r))
-      //console.log('m: ' + JSON.stringify(m))
-      //console.log('h: ' + JSON.stringify(h))
+      // console.log('will call handler with:')
+      // console.log('r: ' + JSON.stringify(r))
+      // console.log('m: ' + JSON.stringify(m))
+      // console.log('h: ' + JSON.stringify(h))
       await h(ctx, next)
       end()
     })
@@ -143,7 +143,7 @@ function serverlessRouter (options, routerFn) {
       })
   })
 
-  //console.log('will use routes and methods.')
+  // console.log('will use routes and methods.')
   app.use(router.routes())
   app.use(router.allowedMethods())
 
@@ -175,8 +175,8 @@ module.exports.msgHandler = (options, handler) => {
 
   return {
     lambdaHandler: async (event, ctx) => {
-      //console.log('ctxEntry: ' + JSON.stringify(ctx))
-      //console.log('eventEntry: ' + JSON.stringify(event))
+      // console.log('ctxEntry: ' + JSON.stringify(ctx))
+      // console.log('eventEntry: ' + JSON.stringify(event))
       const contextId =
         event.Records[0].Sns.MessageAttributes.contextId.Value ||
         helper.generateRandomID()
@@ -192,12 +192,12 @@ module.exports.msgHandler = (options, handler) => {
       end()
     },
     googleHandler: async (event, ctx) => {
-      //console.log('ctxEntry: ' + JSON.stringify(ctx))
-      //console.log('eventEntry: ' + JSON.stringify(event))
+      // console.log('ctxEntry: ' + JSON.stringify(ctx))
+      // console.log('eventEntry: ' + JSON.stringify(event))
       const msg = event.data
         ? Buffer.from(event.data, 'base64').toString()
         : 'no data'
-      //console.log('Message: ' + msg)
+      // console.log('Message: ' + msg)
       const contextId = event.attributes.contextId || helper.generateRandomID()
       const xPair = event.attributes.xPair || 'undefined-x-pair'
 
@@ -210,8 +210,8 @@ module.exports.msgHandler = (options, handler) => {
       end()
     },
     azureHandler: async (ctx, event) => {
-      //console.log('ctxEntry: ' + JSON.stringify(ctx))
-      //console.log('eventEntry: ' + JSON.stringify(event))
+      // console.log('ctxEntry: ' + JSON.stringify(ctx))
+      // console.log('eventEntry: ' + JSON.stringify(event))
       const contextId = event.data.contextId || helper.generateRandomID()
       const xPair = event.data.xPair || 'undefined-x-pair'
 
