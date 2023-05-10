@@ -51,6 +51,7 @@ function logRequestAndAttachContext (ctx, dbBindToMeasure) {
   ctx.contextId = contextId
   ctx.xPair = xPair
   ctx.lib = createContext(contextId, xPair, dbBindToMeasure)
+  ctx.db = ctx.lib.db
 }
 
 async function handleErrors (ctx, next) {
