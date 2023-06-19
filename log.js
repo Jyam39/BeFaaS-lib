@@ -35,7 +35,7 @@ new PerformanceObserver(list =>
     log({
       contextId: perfName.shift(),
       xPair: perfName.shift(),
-      perf: { mark: perfName.join(':'), ...perf }
+      perf: { mark: perfName.join(':'), name: perf.name, entryType: perf.entryType, startTime: perf.startTime, duration: perf.duration }
     })
   })
 ).observe({ entryTypes: ['mark', 'measure', 'function'] })
